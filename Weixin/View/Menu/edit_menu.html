@@ -1,0 +1,607 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+<title>编辑菜单</title>
+<link href="__PUBLIC__/static/font-awesome/css/font-awesome.min.css?v=1497252396" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/base.css?v=1497252396" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/module.css?v=1497252396" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/weiphp.css?v=1497252396" rel="stylesheet">
+<link href="__PUBLIC__/static/emoji.css?v=1497252396" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-2.0.3.min.js"></script>
+<!--<![endif]-->
+<script type="text/javascript" src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/zclip/ZeroClipboard.min.js?v=1497252396"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/dialog.js?v=1497252396"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_common.js?v=1497252396"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_image.js?v=1497252396"></script>
+<script type="text/javascript" src="__PUBLIC__/static/masonry/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.dragsort-0.5.2.min.js"></script>
+<script type="text/javascript">
+var  IMG_PATH = "__PUBLIC__/Weixin/images";
+var  STATIC = "__PUBLIC__/static";
+var  ROOT = "/wp20170503";
+var  UPLOAD_PICTURE = "http://localhost/wp20170503/index.php?s=/home/File/uploadPicture/session_id/efgsjhstbe600vri4c8he7v730.html";
+var  UPLOAD_FILE = "http://localhost/wp20170503/index.php?s=/Home/File/upload/session_id/efgsjhstbe600vri4c8he7v730.html";
+var  UPLOAD_DIALOG_URL = "http://localhost/wp20170503/index.php?s=/home/File/uploadDialog/session_id/efgsjhstbe600vri4c8he7v730.html";
+</script>
+
+</head>
+<body>
+	<!-- 头部 -->
+	<!-- 提示 -->
+<div id="top-alert" class="top-alert-tips alert-error" style="display: none;">
+  <a class="close" href="javascript:;"><b class="fa fa-times-circle"></b></a>
+  <div class="alert-content"></div>
+</div>
+<!-- 导航条
+================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="wrap">
+      <a class="brand" title="微信公众号" href="https://mp.weixin.qq.com" target="_blank">
+        <img height="52" src="https://res.wx.qq.com/mpres/htmledition/images/bg/bg_logo318e8e.png"/>
+      </a>
+      <div class="top_nav">
+          <ul class="nav" style="margin-right:0">
+              <li class="active"><a href="<?php echo WORK_PATH;?>">退出</a></li>
+          </ul>
+      </div>
+    </div>
+</div>
+	<!-- /头部 -->
+
+	<!-- 主体 -->
+
+<div id="main-container" class="admin_container">
+	<div class="sidebar">
+      <ul class="sidenav">
+        <li>
+          <a class="sidenav_parent" href="javascript:void(0);">
+            <!--<img src="__PUBLIC__/Weixin/images/left_icon_.png"/>-->
+            公众号功能</a>
+						<ul class="sidenav_sub">
+						<li class="" data-id="48"> <a href="<?php echo WORK_PATH.'Weixin/Material/news_material';?>"> 素材管理 </a><b class="active_arrow"></b></li>
+          	<li class="" data-id="48"> <a href="<?php echo WORK_PATH.'Weixin/Autoreply/autoreply_news';?>">自动回复 </a><b class="active_arrow"></b></li>
+						<li class="active" data-id="47"> <a href="<?php echo WORK_PATH.'Weixin/Menu/index';?>"> 自定义菜单 </a><b class="active_arrow"></b></li>
+					</ul>
+        </li>
+      </ul>
+  </div>
+	<div class="main_body">
+
+  <div class="span9 page_message">
+  <section id="contents">
+		<ul class="tab-nav nav">
+		  <li class=""><a href="<?php echo WORK_PATH.'Weixin/Menu/index';?>">自定义菜单<span class="arrow fa fa-sort-up"></span></a></li>
+		</ul>
+				 <div class="tab-content">
+      <!-- 表单 -->
+          <form id="form" action="<?php echo WORK_PATH.'Weixin/Menu/update_menu';?>" method="post" class="form-horizontal form-center">
+            <div class="form-item cf toggle-pid">
+							<input type="hidden" value="<?php echo $current_menu['id'];?>" name="menu_id">
+              <label class="item-label">一级菜单<span class="check-tips">
+                （如果是一级菜单，选择“无”即可）</span></label>
+              <div class="controls">
+                <select name="pid">
+                  <option value="0" class="toggle-data" toggle-data="" <?php if($current_menu['pid'] == 0){echo "selected";}?>>无</option>
+									<?php foreach($one_level as $key => $o){?>
+									<option value="<?php echo $o['id'];?>" class="toggle-data" toggle-data="" <?php if($current_menu['pid'] == $o['id']){echo "selected";}?>><?php echo $o['title'];?></option>
+									<?php }?>
+								</select>
+							</div>
+            </div>
+						  <div class="form-item cf toggle-title">
+              <label class="item-label">
+                <span class="need_flag">*</span>菜单名<span class="check-tips">
+                （可创建最多3个一级菜单，每个一级菜单下可创建最多5个二级菜单。编辑中的菜单不会马上被用户看到，请放心调试。）</span>
+							</label>
+              <div class="controls">
+                <input type="text" class="text input-large" name="title" value="<?php echo $current_menu['title'];?>">
+							</div>
+            </div>
+						<div class="form-item cf toggle-from_type">
+              <label class="item-label">菜单事件<span class="check-tips"></span></label>
+              <div class="controls">
+                <select name="from_type">
+									<!-- <option value="-1" class="toggle-data" toggle-data="keyword@hide,url@hide,type@hide,addon@hide,sucai_type@hide,jump_type@hide" >请选择</option> -->
+									<option value="9" class="toggle-data" toggle-data="keyword@show,url@hide,type@show,addon@hide,sucai_type@hide,jump_type@hide" selected>自定义</option>
+									<!-- <option value="1" class="toggle-data" toggle-data="keyword@hide,url@hide,type@hide,sucai_type@show,addon@hide,jump_type@hide">站内素材</option> -->
+								</select>
+							</div>
+            </div>
+						<div class="form-item cf toggle-type">
+              <label class="item-label">类型 <span class="check-tips"></span></label>
+              <div class="controls">
+                <div class="check-item">
+                  <input type="radio" class="regular-radio toggle-data" value="click" id="type_click" name="type" toggle-data="keyword@show,url@hide" <?php if($current_menu['keyword']){echo "checked";}?>/>
+                  <label for="type_click"></label>点击推事件
+                </div>
+								<div class="check-item">
+                  <input type="radio" class="regular-radio toggle-data" value="view" id="type_view" name="type" toggle-data="keyword@hide,url@show" <?php if($current_menu['url']){echo "checked";}?>/>
+                  <label for="type_view"></label>跳转URL
+                </div>
+								<div class="check-item">
+	                <input type="radio" class="regular-radio toggle-data" value="none" id="type_none" name="type" toggle-data="keyword@hide,url@hide" <?php if($current_menu['pid'] == 0){echo "checked";}?>/>
+	                <label for="type_none"></label>
+	                无事件的一级菜单
+	              </div>
+							</div>
+            </div>
+						<div class="form-item cf toggle-sucai_type">
+		            <label class="item-label">素材类型</label>
+		            <div class="controls">
+		                <div id="material_sucai_type"></div>
+<style>
+.image_material,.text_material,.voice_material,.video_material {
+	display: block;
+    border: 1px dashed #ddd;
+    width: 308px;
+    height: auto;
+    background: #eee;
+    text-align: center;
+    color: #333;
+    display: block;
+    float: left;
+    position: relative;
+}
+.image_material .select_image,.voice_material .select_voice,.video_material .select_video,.text_material .select_text {
+    line-height: 196px;
+    display: block;
+    height: 200px;
+}
+#voice_area,#video_area,#image_area{
+	position: relative;
+}
+#image_area .delete,#voice_area .delete,#video_area .delete,.text_material .delete {
+    position: absolute;
+    top: 1px;
+    white-space: nowrap;
+    display: none;
+}
+.appmsg_item {
+    padding: 15px;
+    width: 278px;
+}
+.appmsg_item .main_img {
+    height: auto;margin: 0;
+}
+#image_area .image_wrap{border: 1px dashed #ddd;width: 308px;display: none;}
+.video_wrap,.voice_wrap{background: #fff;}
+.voice_wrap{ width:308px;float:left}
+.video_wrap{ width:222px;}
+.select_video,.select_voice,.select_image{  height: 240px;line-height: 240px; cursor:pointer}
+</style>
+<input type="hidden" value="" name="sucai_type" id="material_res_sucai_type" data-type='' data-id='' />
+<div class="form-item cf">
+  <div class="controls">
+    <div class="check-item">
+      <input type="radio" name="material_sucai_type_type" id="material_sucai_type_img" value="img" class="regular-radio" onClick="changeOption()">
+       <label for="material_sucai_type_img"></label>图片
+    </div>
+    <div class="check-item">
+      <input type="radio" name="material_sucai_type_type" id="material_sucai_type_news" value="news" class="regular-radio" onClick="changeOption()">
+      <label for="material_sucai_type_news"></label>图文
+    </div>
+  </div>
+</div>
+<div  class="form-item cf show shownews appmsg_area" id="appmsg_area" style="margin:20px 0;">
+<input type="hidden" name="material_sucai_type_news_id" value=""/>
+  <a class="select_appmsg" href="javascript:;" onClick="$.WeiPHP.openSelectAppMsg('http://localhost/wp20170503/index.php?s=/Home/Material/material_data.html',selectAppMsgCallback)">选择图文</a>
+  <div class="appmsg_wrap" style="height:auto;"></div>
+  <a class="delete" href="javascript:;" style="left: 310px;">删除</a>
+</div>
+<div class="form-item cf show showimg image_area" id="image_area" style="margin:20px 0;">
+<input type="hidden" name="material_sucai_type_img_id" value=""/>
+  <a class="select_image image_material" href="javascript:;"  onClick="$.WeiPHP.openSelectAppMsg('http://localhost/wp20170503/index.php?s=/Home/Material/picture_data.html',selectImageCallback)">从素材库选择图片</a>
+  <div class="image_wrap"></div>
+  <a class="delete" href="javascript:;" style="left: 310px; ">删除</a>
+</div>
+
+<script type="text/javascript">
+function changeOption(){
+	$(".show").each(function(){
+		$(this).hide();
+
+	});
+	var val = $("input[name='material_sucai_type_type']:checked").val();
+	$("#material_sucai_type").attr('data-type', val);
+
+	if(val == 'news'){
+		var group_id=$("input[name='material_sucai_type_news_id']").val();
+		if(group_id){
+			$.post("http://localhost/wp20170503/index.php?s=/Home/Material/get_news_by_group_id.html",{'group_id':group_id},function(vo){
+				var html_str='';
+				if(vo.length==1){
+					html_str='<div class="appmsg_item"><h6>'+vo[0]['title']+'</h6><div class="main_img"><img src="'+vo[0]['img_url']+'"/></div><p class="desc">'+vo[0]['intro']+'</p></div><div class="hover_area"></div>';
+				}else{
+					for(var i=0;i<vo.length;i++){
+						if(vo[i]['id']==group_id){
+							html_str='<div class="appmsg_item"><div class="main_img"><img src="'+vo[i]['img_url']+'"/><h6 class="ellipsis"">'+vo[i]['title']+'</h6></div><p class="desc">'+vo[i]['intro']+'</p></div>';
+						}else{
+							html_str+=' <div class="appmsg_sub_item"><p class="title">'+vo[i]['title']+'</p><div class="main_img"><img src="'+vo[i]['img_url']+'"/></div></div>';
+						}
+					}
+					html_str+='<div class="hover_area"></div>';
+				}
+				$('.appmsg_wrap').html(html_str).show();
+				$('.select_appmsg').hide();
+				$('.appmsg_area .delete').show();
+
+			})
+		}
+	}else if(val == 'img'){
+		var image_id=$("input[name='material_sucai_type_img_id']").val();
+		var img_html='';
+		if(image_id){
+			$.post("http://localhost/wp20170503/index.php?s=/Home/Material/ajax_picture_by_id.html",{'image_id':image_id},function(imgpath){
+				if(imgpath){
+					img_html='<div class="appmsg_item"><div class="main_img"><img src="'+imgpath+'"/></div><div class="hover_area"></div></div>';
+					$('.image_wrap').html(img_html).show();
+					$('.select_image').hide();
+	 				$('#image_area .delete').show();
+				}
+			});
+		}
+	}else if(val == 'text'){
+			var text_id=$("input[name='material_sucai_type_text_id']").val();
+			var text_html='';
+			$.post("http://localhost/wp20170503/index.php?s=/Home/Material/ajax_text_by_id.html",{'text_id':text_id},function(content){
+				if(content){
+					text_html=content;
+					$('.text_wrap').html(text_html).show();
+					$('.select_text').hide();
+					$('.showtext .delete').show();
+
+				}
+			});
+	}
+
+	$('.show'+val).each(function(){
+		$(this).show();
+	});
+	setRes();
+}
+$(function(){
+	var type = '';
+	var arrType= type.split(":");
+	if(arrType[0]=="")
+	    arrType[0] = 'text';
+	$("input[name='material_sucai_type_type'][value="+arrType[0]+"]").attr("checked",true);
+	changeOption();
+	$('.appmsg_area .delete').click(function(){
+		$('.appmsg_wrap').html('').hide();
+		$('.select_appmsg').show();
+		$('.appmsg_area .delete').hide();
+		$('input[name="material_sucai_type_news_id"]').val(0);
+	})
+	$('#image_area .delete').click(function(){
+		$('.image_wrap').html('').hide();
+		$('.select_image').show();
+		$('#image_area .delete').hide();
+		$('input[name="material_sucai_type_img_id"]').val(0);
+	})
+	$('.showtext .delete').click(function(){
+		$('.text_wrap').html('').hide();
+		$('.select_text').show();
+		$('.showtext .delete').hide();
+		$('input[name="material_sucai_type_text_id"]').val(0);
+	})
+})
+function selectAppMsgCallback(_this){
+	$('.appmsg_wrap').html($(_this).html()).show();
+	$('.select_appmsg').hide();
+	$('.appmsg_area .delete').show();
+	$('input[name="material_sucai_type_news_id"]').val($(_this).data('group_id'));
+	$.Dialog.close();
+	setRes();
+}
+function selectImageCallback(_this){
+	$('.image_wrap').html($(_this).html()).show();
+	$('.select_image').hide();
+ 	$('#image_area .delete').show();
+	$('input[name="material_sucai_type_img_id"]').val($(_this).data('id'));
+	$.Dialog.close();
+	setRes();
+}
+function selectTextCallback(_this){
+	$('.text_wrap').html(_this['content']).show();
+	$('.select_text').hide();
+ 	$('.showtext .delete').show();
+	$('input[name="material_sucai_type_text_id"]').val(_this['id']);
+	$.Dialog.close();
+	setRes();
+}
+function setRes(){
+	var type = $("input[name='material_sucai_type_type']:checked").val();
+	if(type=='text'){
+		var id = $('input[name="material_sucai_type_text_id"]').val();
+	}else if(type=='img'){
+		var id = $('input[name="material_sucai_type_img_id"]').val();
+	}else if(type=='news'){
+		var id = $('input[name="material_sucai_type_news_id"]').val();
+	}
+	/*console.log(type);
+	console.log(id);*/
+	var res = type + ':' +id;
+	/*console.log(res);*/
+	$('#material_res_sucai_type').val(res);
+}
+</script>
+	</div>
+</div>
+				<div class="form-item cf toggle-keyword">
+						<label class="item-label">关联关键词</label>
+						<div class="controls">
+								<input type="text" class="text input-large" name="keyword" value="<?php echo $current_menu['keyword'];?>">
+						</div>
+				</div>
+				<div class="form-item cf toggle-url">
+						<label class="item-label">关联URL</label>
+						<div class="controls">
+								<input type="text" class="text input-large" name="url" value="<?php echo $current_menu['url'];?>">
+						</div>
+				</div>
+				<div class="form-item cf toggle-sort">
+						<label class="item-label">排序号 <span class="check-tips">（数值越小越靠前）</span></label>
+						<div class="controls">
+								<input type="number" class="text" name="sort" value="<?php echo $current_menu['sort'];?>">
+						</div>
+				</div>
+				<input type="hidden" class="text" name="target_id" value="">
+        </div>
+        <div class="form-item form_bh">
+          <button class="btn submit-btn ajax-post" id="submit1" type="button" target-form="form-horizontal">确 定</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  </div>
+
+  </div>
+</div>
+
+	<!-- /主体 -->
+
+<script type="text/javascript">
+(function(){
+	var ThinkPHP = window.Think = {
+		"ROOT"   : "/wp20170503", //当前网站地址
+		"APP"    : "/wp20170503/index.php?s=", //当前项目地址
+		"PUBLIC" : "/wp20170503/Public", //项目公共目录地址
+		"DEEP"   : "/", //PATHINFO分割符
+		"MODEL"  : ["3", "", "html"],
+		"VAR"    : ["m", "c", "a"]
+	}
+})();
+</script>
+
+  <link href="__PUBLIC__/static/datetimepicker/css/datetimepicker.css?v=1497252396" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/static/datetimepicker/css/dropdown.css?v=1497252396" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="__PUBLIC__/static/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/static/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js?v=1497252396" charset="UTF-8"></script>
+  <script type="text/javascript">
+$('#submit1').click(function(){
+// 	var url=$("select[name='target_id'] option:selected").data('url');
+// 	$("input[name='url']").val(url);
+	var title = $("input[name='title']").val();
+	if(!title){
+		alert('请填写菜单名');
+		return false;
+	}
+	var fromType=$("select[name='from_type'] option:selected").val();
+	if(fromType == -1){
+		alert('请选择配置动作');
+		return false;
+	}
+	if(fromType == 9){
+		var type= $("input[name='type']:checked").val();
+		if(type == 'view'){
+			var url=$("input[name='url']").val();
+			if(!url){
+				alert('请输入关联url');
+				return false;
+			}
+		}else if(type != 'none'){
+			var keyword=$("input[name='keyword']").val();
+			if(!keyword){
+				alert('请输入关联关键词');
+				return false;
+			}
+		}
+	}
+    $('#form').submit();
+});
+$(function(){
+	//初始化上传图片插件
+	initUploadImg();
+	initUploadFile();
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:0,
+        autoclose:true
+    });
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    showTab();
+
+	$('.toggle-data').each(function(){
+		var data = $(this).attr('toggle-data');
+		if(data=='') return true;
+
+	     if($(this).is(":selected") || $(this).is(":checked")){
+			 change_event(this)
+		 }
+	});
+	$('.toggle-data').bind("click",function(){ change_event(this) });
+	$('select').change(function(){
+		$('.toggle-data').each(function(){
+			var data = $(this).attr('toggle-data');
+			if(data=='') return true;
+
+			 if($(this).is(":selected") || $(this).is(":checked")){
+				 change_event(this)
+			 }
+		});
+	});
+
+	$("select[name='from_type']").change(function(){
+
+		var fromType=$("select[name='from_type'] option:selected").val();
+		if(fromType != 9){
+			$('.toggle-keyword').hide();
+			$('.toggle-url').hide();
+// 			$("input[name='keyword']").prop('readonly',true);
+// 			$("input[name='url']").prop('readonly',true);
+		}else{
+// 			$("input[name='keyword']").prop('readonly',false);
+// 			$("input[name='url']").prop('readonly',false);
+			$('.toggle-keyword').show();
+			//$('.toggle-url').show();
+		}
+	});
+	var addon="";
+	var jump_type=$("input[name='jump_type']:checked").val();
+	getAddon(jump_type,addon);
+	$("input[name='jump_type']").click(function(){
+		$('.toggle-keyword').hide();
+		$('.toggle-url').hide();
+		var jump_type=$("input[name='jump_type']:checked").val();
+		getAddon(jump_type,addon);
+	});
+	$("select[name='addon']").change(function(){
+		$('.toggle-keyword').hide();
+		$('.toggle-url').hide();
+		var jump_type=$("input[name='jump_type']:checked").val();
+		var select_addon=$("select[name='addon'] option:selected").val();
+
+		//0:关键词 1：url
+		$.post("http://localhost/wp20170503/index.php?s=/addon/CustomMenu/CustomMenu/get_addons_lists_url.html",{'addon_name':select_addon},function(urls){
+			if(urls['url']){
+				selectAddons(urls['url'],select_addon,jump_type);
+			}else{
+				if(jump_type==0){
+					if(select_addon =='Weiba'){
+						$("input[name='type']").val('click');
+						var k='微社区';
+						$("input[name='keyword']").val(k);
+						$("input[name='target_id']").val(-1);
+					}else{
+						$("input[name='type']").val('click');
+						var k='custom_addon_'+select_addon+'_lists';
+						$("input[name='keyword']").val(k);
+						$("input[name='target_id']").val(-1);
+					}
+// 					$("select[name='target_id'] option").remove();
+// 					var targetStr='<option value="-1" selected=selected>-1</option>';
+// 					$(targetStr).appendTo("select[name='target_id']");
+				}else{
+					$("input[name='type']").val('view');
+					$("input[name='url']").val(urls['jump_url']);
+					$("input[name='target_id']").val(-1);
+// 					$("select[name='target_id'] option").remove();
+// 					var targetStr='<option value="-1" selected=selected>-1</option>';
+// 					$(targetStr).appendTo("select[name='target_id']");
+				}
+			}
+		});
+		var url="http://localhost/wp20170503/index.php?s=/addon/CustomMenu/CustomMenu/get_target.html";
+// 		$.post(url,{'addon_name':select_addon,'jump_type',jump_type},function(d){
+
+// 			$("select[name='target_id'] option").remove();
+// 			var targetStr='';
+// 			for(var i=0;i<d.length;i++){
+// 				targetStr+='<option value='+d[i].id+' data-url='+d[i].url+'>'+d[i].title+'</option>';
+// 			}
+// 			$(targetStr).appendTo("select[name='target_id']");
+// 		});
+
+	});
+
+	$("select[name='sucai_type']").change(function(){
+		$('.toggle-keyword').hide();
+		$("select[name='addon']").val(0);
+		var select_sucai=$("select[name='sucai_type'] option:selected").val();
+		$("select[name='target_id'] option").remove();
+		if(select_sucai == 1){
+// 			selectNews();
+			$.WeiPHP.openSelectAppMsg('http://localhost/wp20170503/index.php?s=/Home/Material/material_data.html',selectAppMsgCallback);
+		}else if(select_sucai==2){
+			selectText();
+		}else if(select_sucai==3){
+			$.WeiPHP.openSelectAppMsg('http://localhost/wp20170503/index.php?s=/Home/Material/picture_data.html',selectImageCallback);
+		}else if(select_sucai==4){
+			$.WeiPHP.openSelectAppMsg('http://localhost/wp20170503/index.php?s=/Home/Material/voice_data.html',selectVoiceCallback,'选择语音素材');
+		}else if(select_sucai==5){
+			$.WeiPHP.openSelectAppMsg('http://localhost/wp20170503/index.php?s=/Home/Material/video_data.html',selectVideoCallback,'选择视频素材');
+		}
+	});
+});
+function getAddon(jump_type,addon){
+	$("select[name='addon'] option").remove();
+	$.post("http://localhost/wp20170503/index.php?s=/addon/CustomMenu/CustomMenu/get_addons_name.html",{'jump_type':jump_type},function(data){
+		var addonStr='<option value="0" >请选择</option>';
+		for(var j=0;j<data.length;j++){
+			if(addon==data[j]['key']){
+				addonStr += '<option value="'+data[j]['key']+'" selected=selected> '+data[j]['title']+'</option>' ;
+			}else{
+				addonStr += '<option value="'+data[j]['key']+'"> '+data[j]['title']+'</option>' ;
+			}
+		}
+		$(addonStr).appendTo("select[name='addon']");
+	})
+}
+function selectAddons(url,addon,jump_type){
+	$.WeiPHP.openSelectLists(url,1,'选择内容',function(data){
+		if(data && data.length>0){
+			for(var i=0;i<data.length;i++){
+				var id=data[i]['id'];
+				if(id){
+					if(jump_type ==0){
+						//关键词
+						$("input[name='type']").val('click');
+						var k='custom_addon_'+addon+'_'+id;
+						$("input[name='keyword']").val(k);
+						$("input[name='target_id']").val(id);
+// 						$("select[name='target_id'] option").remove();
+// 						var targetStr='<option value='+id+' selected=selected>'+id+'</option>';
+// 						$(targetStr).appendTo("select[name='target_id']");
+					}else{
+						//url
+						$("input[name='type']").val('view');
+						$.post("http://localhost/wp20170503/index.php?s=/addon/CustomMenu/CustomMenu/get_addon_jump_url.html",{'addon_name':addon,'id':id,'jump_type':jump_type},function(dd){
+							$("input[name='url']").val(dd);
+						})
+						$("input[name='target_id']").val(id);
+// 						$("select[name='target_id'] option").remove();
+// 						var targetStr='<option value='+id+' selected=selected>'+id+'</option>';
+// 						$(targetStr).appendTo("select[name='target_id']");
+					}
+
+// 					$.post("http://localhost/wp20170503/index.php?s=/Home/Material/get_content_by_id.html",{'id':id},function(d){
+// // 						$('#message_text').text(d);
+// 						targetStr+='<option value='+id+' data-url="">'+d+'</option>';
+// 						$(targetStr).appendTo("select[name='target_id']");
+// 					})
+				}
+			}
+		}
+	})
+}
+</script>
+ <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+<div style='display:none'><script>$.post("http://localhost/wp20170503/log.php?_addons=CustomMenu&_controller=CustomMenu&_action=add&m=Home&publicid=1&c=Addons&a=execute&uid=1");</script></div>
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+
+</div>
+
+	<!-- /底部 -->
+</body>
+</html>

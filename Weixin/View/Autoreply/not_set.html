@@ -1,0 +1,150 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>自动回复</title>
+<link href="__PUBLIC__/static/font-awesome/css/font-awesome.min.css?v=1497406666" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/base.css?v=1497406666" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/module.css?v=1497406666" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/weiphp.css?v=1497406666" rel="stylesheet">
+<link href="__PUBLIC__/static/emoji.css?v=1497406666" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/zclip/ZeroClipboard.min.js?v=1497406666"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/dialog.js?v=1497406666"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_common.js?v=1497406666"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_image.js?v=1497406666"></script>
+<script type="text/javascript" src="__PUBLIC__/static/masonry/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.dragsort-0.5.2.min.js"></script>
+<script type="text/javascript">
+var  IMG_PATH = "__PUBLIC__/Weixin/images";
+var  STATIC = "__PUBLIC__/static";
+var  ROOT = "/wp20170503";
+var  UPLOAD_PICTURE = "http://localhost/wp20170503/index.php?s=/home/File/uploadPicture/session_id/efgsjhstbe600vri4c8he7v730.html";
+var  UPLOAD_FILE = "http://localhost/wp20170503/index.php?s=/Home/File/upload/session_id/efgsjhstbe600vri4c8he7v730.html";
+var  UPLOAD_DIALOG_URL = "http://localhost/wp20170503/index.php?s=/home/File/uploadDialog/session_id/efgsjhstbe600vri4c8he7v730.html";
+</script>
+
+</head>
+<body>
+	<!-- 头部 -->
+	<!-- 提示 -->
+<div id="top-alert" class="top-alert-tips alert-error" style="display: none;">
+  <a class="close" href="javascript:;"><b class="fa fa-times-circle"></b></a>
+  <div class="alert-content"></div>
+</div>
+<!-- 导航条
+================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="wrap">
+      <a class="brand" title="微信公众号" href="https://mp.weixin.qq.com" target="_blank">
+        <img height="52" src="https://res.wx.qq.com/mpres/htmledition/images/bg/bg_logo318e8e.png"/>
+      </a>
+      <div class="top_nav">
+          <ul class="nav" style="margin-right:0">
+              <li class="active"><a href="<?php echo WORK_PATH;?>">退出</a></li>
+          </ul>
+      </div>
+    </div>
+</div>
+	<!-- /头部 -->
+
+	<!-- 主体 -->
+
+	<div id="main-container" class="admin_container">
+		<div class="sidebar">
+	      <ul class="sidenav">
+	        <li>
+	          <a class="sidenav_parent" href="javascript:void(0);">
+	            公众号功能</a>
+							<ul class="sidenav_sub">
+							<li class="" data-id="48"> <a href="<?php echo WORK_PATH.'Weixin/Material/news_material';?>"> 素材管理 </a><b class="active_arrow"></b></li>
+	          	<li class="active" data-id="48"> <a href="<?php echo WORK_PATH.'Weixin/Autoreply/autoreply_news';?>">自动回复 </a><b class="active_arrow"></b></li>
+							<li class="" data-id="47"> <a href="<?php echo WORK_PATH.'Weixin/Menu/index';?>"> 自定义菜单 </a><b class="active_arrow"></b></li>
+						</ul>
+	        </li>
+	      </ul>
+	  </div>
+		<div class="main_body">
+
+  <div class="span9 page_message">
+    <section id="contents">
+      <ul class="tab-nav nav">
+				<li class=""><a href="<?php echo WORK_PATH.'Weixin/Autoreply/autoreply_news';?>">回复图文消息<span class="arrow fa fa-sort-up"></span></a></li>
+				<li class=""><a href="<?php echo WORK_PATH.'Weixin/Autoreply/autoreply_image';?>">回复图片消息<span class="arrow fa fa-sort-up"></span></a></li>
+				<li class=""><a href="<?php echo WORK_PATH.'Weixin/Autoreply/autoreply_text';?>">回复文本消息<span class="arrow fa fa-sort-up"></span></a></li>
+				<li class=""><a href="<?php echo WORK_PATH.'Weixin/Autoreply/wecome';?>">被添加时回复<span class="arrow fa fa-sort-up"></span></a></li>
+				<li class="current"><a href="<?php echo WORK_PATH.'Weixin/Autoreply/not_set';?>">未识别时回复<span class="arrow fa fa-sort-up"></span></a></li>
+			</ul>
+			<div class="tab-content">
+					<!-- 表单 -->
+					<form id="form" action="<?php echo WORK_PATH.'Weixin/Autoreply/edit_not_set';?>" method="post" class="form-horizontal form-center" name="form">
+            <div class="form-item cf toggle-content">
+                <label class="item-label">未识别时回复内容</label>
+                <div class="controls">
+                    <label class="textarea input-large">
+	                    <textarea name="content"><?php echo $not_set['content'];?></textarea>
+										</label>
+                </div>
+            </div>
+            <div class="form-item form_bh" style="text-align:center">
+                <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            </div>
+	        </form>
+			</div>
+    </section>
+  </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+(function(){
+	var ThinkPHP = window.Think = {
+		"ROOT"   : "/wp20170503", //当前网站地址
+		"APP"    : "/wp20170503/index.php?s=", //当前项目地址
+		"PUBLIC" : "/wp20170503/Public", //项目公共目录地址
+		"DEEP"   : "/", //PATHINFO分割符
+		"MODEL"  : ["3", "", "html"],
+		"VAR"    : ["m", "c", "a"]
+	}
+})();
+</script>
+
+  <script type="text/javascript">
+$(function(){
+	//搜索功能
+  $("#search").click(function(){
+    var url = $(this).attr('url');
+    var str = $('.search-input').val()
+        var query  = $('.search-input').attr('name')+'='+str.replace(/(^\s*)|(\s*$)/g,"");
+
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+    window.location.href = url;
+  });
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+})
+</script>
+ <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+<div style='display:none'><script>$.post("http://localhost/wp20170503/log.php?_addons=Autoreply&_controller=Autoreply&_action=lists&m=Home&mdm=45%7C48&publicid=1&c=Addons&a=execute&uid=1");</script></div>
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+
+</div>
+
+	<!-- /底部 -->
+</body>
+</html>

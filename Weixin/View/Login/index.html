@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+	<meta charset="utf-8">
+	<meta name="baidu-site-verification" content="DLH0DxvBfi">
+	<title>微信公众平台</title>
+	<meta name="keywords" content="微信公众平台,微信公众平台官方网站,公众号注册,微信公众号注册,微信订阅号注册,微信公众号申请,微信服务号申请,微信订阅号申请,微信企业号申请,微信服务号注册,微信企业号注册,订阅号注册,公众号申请,服务号申请,订阅号申请,企业号申请,服务号注册,企业号注册,微信">
+	<meta name="description" content="微信公众平台，给个人、企业和组织提供业务服务与用户管理能力的全新服务平台。">
+	<link href="https://res.wx.qq.com/mpres/htmledition/images/favicon218877.ico" rel="Shortcut Icon">
+	<link onerror="wx_loaderror(this)" rel="stylesheet" href="https://res.wx.qq.com/mpres/htmledition/style/page/page_login36c8a1.css">
+	<script onerror="wx_loaderror(this)" type="text/javascript" src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/jquery-1.9.126d05a.js"></script>
+</head>
+<body class="zh_CN">
+	<div class="head" id="header">
+		<div class="head_box">
+			<div class="inner wrp">
+				<h1 class="logo">
+					<a href="<?php echo WORK_PATH.'Weixin/login/index';?>" title="微信公众平台">微信公众平台</a>
+				</h1>
+				<div class="account">
+					<div class="account_meta account_faq">                            第一次使用公众平台？
+						<a href="https://mp.weixin.qq.com/cgi-bin/registermidpage?action=index&lang=zh_CN" id="js_register_btn">立即注册</a>
+						<i class="account_line">|</i>
+						<a href="http://kf.qq.com/product/weixinmp.html" target="_blank">腾讯客服</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="banner">
+			<div class="inner wrp">
+				<div class="login_frame input_login" id="input_login">
+					<h3>登录</h3>
+					<div class="login_err_panel" style="display:none;" id="err"> </div>
+					<form class="login_form" id="loginForm">
+						<div class="login_input_panel" id="js_mainContent">
+							<div class="login_input">
+								<i class="icon_login un"> </i>
+								<input type="text" placeholder="邮箱/微信号/QQ号" id="account" name="account">
+							</div>
+							<div class="login_input">
+								<i class="icon_login pwd"> </i>
+								<input type="password" placeholder="密码" id="pwd" name="password" >
+							</div>
+						</div>
+						<div class="verifycode" style="display:none;" id="verifyDiv">
+							<span class="frm_input_box">
+								<input class="frm_input" type="text" id="verify" name="verify" >
+							</span>
+							<img id="verifyImg" src="" />
+							<a href="javascript:;" id="verifyChange">换一张</a>
+						</div>
+						<div class="login_help_panel">
+							<label class="frm_checkbox_label" for="rememberCheck">
+								<i class="icon_checkbox"></i>
+								<input type="checkbox" class="frm_checkbox" id="rememberCheck">                                    记住帐号
+							</label>
+							<a class="login_forget_pwd" href="https://mp.weixin.qq.com/cgi-bin/readtemplate?t=forgetpwd/index_tmpl">登录遇到问题</a>
+						</div>
+						<div class="login_btn_panel">
+							<a class="btn_login" title="点击登录" href="javascript:" id="loginBt1">登录</a>
+						</div>
+					</form>
+				</div>
+				<div class="login_frame quick_login" id="quick_login" style="display: none;">
+				</div>
+				<script>
+				    $('#loginBt1').click(function(){
+								var username=$('#account').val();
+				        var pw=$('#pwd').val();
+				        if(username==''||pw==''){
+				            alert('请输入正确的账号和密码');
+				            return false;
+				        }else if(!(/^1[3|4|5|7|8]\d{9}$/.test(username))){
+				            alert('账号为11为手机号');
+				            return false;
+				        }
+				        $.ajax({
+				          url: "<?php echo WORK_PATH.'Weixin/Login/login';?>",
+				          type: "POST",
+				          dataType: "json",
+				          data: {
+				            username : username,
+				            password : pw
+				          },
+				          success:function(msg){
+				            // console.log(msg);
+										// return false;
+				            if (msg.code) {
+				              alert(msg.message);
+				            }else {
+				              window.location.href = ("<?php echo WORK_PATH.'Weixin/Material/news_material';?>");
+				            }
+				          }
+				        });
+				    });
+				</script>
+
+
+<dl class="qrcode_panel">                        <dt>
+	<img src="https://res.wx.qq.com/mpres/htmledition/images/mp_qrcode218877.gif">                        </dt>                        <dd>                            扫描并关注<br>微信公众平台                        </dd>                    </dl>                </div>            </div>        </div>        <div id="body" class="body page_login">                        <dl class="notices_box">                <dt>                    <i class="icon_login speaker"></i>系统公告                </dt>
+		<dd>                    <i>●</i>
+			<a class="notices_title" href="https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1498738094&version=2&lang=zh_CN" target="_blank" >                        公众平台新增定时群发功能                    </a>                    <span class="label_new"></span>                </dd>                                                <dd>                    <i>●</i>                    <a class="notices_title" href="https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1496827967&version=8&lang=zh_CN" target="_blank" >                        对所有公众号开放在图文消息中插入全平台已群发文章链接                    </a>                    <span class="label_new"></span>                </dd>                                                                  <dd class="extra">                    <a href="https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncementlist&lang=zh_CN" target="_blank" >                        查看更多
+				<i class="icon_arrow"></i>                    </a>                </dd>            </dl>                        <div class="mp_kind_mod">                <div class="mp_kind_mod_hd">                    <h3>帐号分类</h3>                </div>                                <div class="mp_kind_mod_bd group">                    <div class="mp_kind_wrp">                        <div class="mp_kind_box">                            <dl class="mp_kind">                                <dt class="name"><span class="icon_mp_kind service"></span>服务号</dt>
+					<dd>给企业和组织提供更强大的业务服务与用户管理能力，帮助企业快速实现全新的公众号服务平台。 </dd>                            </dl>                            <div class="mp_option_box">                                <a href="https://kf.qq.com/touch/scene_faq.html?scene_id=kf3386" target="_blank"  class="btn btn_primary">查看详情</a>                                <div class="mp_option_links">                                    <a href="https://mp.weixin.qq.com/wiki" target="_blank">开发文档</a> |
+						<a href="https://mp.weixin.qq.com/cgi-bin/readtemplate?t=business/faq_operation_tmpl&type=info&lang=zh_CN" target="_blank">运营规范</a>                                </div>                            </div>                        </div>                    </div>                    <div class="mp_kind_wrp">                        <div class="mp_kind_box">                            <dl class="mp_kind">                                <dt class="name"><span class="icon_mp_kind subscribe"></span>订阅号</dt>                                <dd>为媒体和个人提供一种新的信息传播方式，构建与读者之间更好的沟通与管理模式。
+						</dd>                            </dl>
+						<div class="mp_option_box">                                <a href="https://kf.qq.com/faq/120911VrYVrA15091832Qzqq.html?scene_id=kf3384" target="_blank" class="btn btn_primary">查看详情</a>                                <div class="mp_option_links">                                    <a href="https://mp.weixin.qq.com/wiki" target="_blank">开发文档</a> |                                     <a href="https://mp.weixin.qq.com/cgi-bin/readtemplate?t=business/faq_operation_tmpl&type=info&lang=zh_CN" target="_blank">运营规范</a>                                </div>                            </div>                        </div>                    </div><div class="mp_kind_wrp">                        <div class="mp_kind_box">                            <dl class="mp_kind">                                <dt class="name"><span class="icon_mp_kind app"></span>小程序</dt>
+							<dd>一种新的开放能力，可以在微信内被便捷地获取和传播，同时具有出色的使用体验。</dd>                            </dl>                            <div class="mp_option_box">                                <a href="https://mp.weixin.qq.com/cgi-bin/wx" target="_blank" class="btn btn_primary">查看详情</a>                                <div class="mp_option_links">                                    <a href="https://mp.weixin.qq.com/debug/wxadoc/design/index.html" target="_blank">设计</a> |
+								<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/index.html" target="_blank">开发</a> |                                     <a href="https://mp.weixin.qq.com/debug/wxadoc/product/index.html" target="_blank">运营</a> |                                    <a href="http://developers.weixin.qq.com/" target="_blank">社区</a>                                </div>                            </div>                        </div>                    </div>                </div>
+							</div>                        <div class="full_width_mod enterprise">                <a class="mp_kind_btn_block" href="https://work.weixin.qq.com/?from=mp_home" target="_blank">                    <span class="icon_mp_kind enterprise"></span>                    <p class="name enterprise">企业微信<br><span style="color: #888; font-size: 14px;">原企业号</span></p>                    <span class="description">企业微信继承企业号所有能力，同时为企业提供专业的通讯工具、丰富的办公应用与API，助力企业高效沟通与办公。</span>                </a>            </div>                    </div>        <div class="foot" id="footer"><ul class="links ft"><li class="links_item no_extra"><a href="http://www.tencent.com/zh-cn/index.shtml" target="_blank">关于腾讯</a></li><li class="links_item"><a href="https://mp.weixin.qq.com/cgi-bin/readtemplate?t=home/agreement_tmpl&type=info&lang=zh_CN&token=" target="_blank">服务协议</a></li><li class="links_item"><a href="https://mp.weixin.qq.com/mp/opshowpage?action=main&lang=zh_CN&token=" target="_blank">运营中心</a></li><li class="links_item"><a href="https://mp.weixin.qq.com/cgi-bin/opshowpage?action=dispelinfo&lang=zh_CN&begin=1&count=9" target="_blank">辟谣中心</a></li><li class="links_item"><a href="http://kf.qq.com/product/weixinmp.html" target="_blank">腾讯客服</a></li>                        <li class="links_item"><a href="mailto:weixinmp@qq.com" target="_blank">联系邮箱</a></li>
+								<li class="links_item"><a href="https://mp.weixin.qq.com/acct/infringementlogin?action=getkey&lang=zh_CN" target="_blank">侵权投诉</a></li>
+								<li class="links_item"><p class="copyright">Copyright &copy; 2012-2017 Tencent. All Rights Reserved.</p> </li></ul></div>
+<!-- <script type="text/javascript">
+    window._points&&(window._points[2]=+new Date());
+</script>
+<script type="text/javascript">
+  var aSource = "";
+  var toUrl = "";
+</script>
+<script onerror="wx_loaderror(this)" type="text/javascript" src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/template-2.0.126d05a.js">
+</script>
+<script onerror="wx_loaderror(this)" type="text/javascript" src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/home/login_new2340576.js">
+</script>
+<script onerror="wx_loaderror(this)" type="text/javascript" src="https://tajs.qq.com/stats?sId=55572981" charset="UTF-8"></script> -->
+</body></html>

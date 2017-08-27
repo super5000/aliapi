@@ -1,0 +1,244 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+<title>自定义菜单</title>
+<link href="__PUBLIC__/static/font-awesome/css/font-awesome.min.css?v=1497232392" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/base.css?v=1497232392" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/module.css?v=1497232392" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/weiphp.css?v=1497232392" rel="stylesheet">
+<link href="__PUBLIC__/static/emoji.css?v=1497232392" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-2.0.3.min.js"></script>
+<!--<![endif]-->
+<script type="text/javascript" src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/zclip/ZeroClipboard.min.js?v=1497232392"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/dialog.js?v=1497232392"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_common.js?v=1497232392"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_image.js?v=1497232392"></script>
+<script type="text/javascript" src="__PUBLIC__/static/masonry/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.dragsort-0.5.2.min.js"></script>
+<script type="text/javascript">
+var  IMG_PATH = "__PUBLIC__/Weixin/images";
+var  STATIC = "__PUBLIC__/static";
+var  ROOT = "/wp20170503";
+var  UPLOAD_PICTURE = "http://localhost/wp20170503/index.php?s=/home/File/uploadPicture/session_id/efgsjhstbe600vri4c8he7v730.html";
+var  UPLOAD_FILE = "http://localhost/wp20170503/index.php?s=/Home/File/upload/session_id/efgsjhstbe600vri4c8he7v730.html";
+var  UPLOAD_DIALOG_URL = "http://localhost/wp20170503/index.php?s=/home/File/uploadDialog/session_id/efgsjhstbe600vri4c8he7v730.html";
+</script>
+
+</head>
+<body>
+	<!-- 头部 -->
+	<!-- 提示 -->
+<div id="top-alert" class="top-alert-tips alert-error" style="display: none;">
+  <a class="close" href="javascript:;"><b class="fa fa-times-circle"></b></a>
+  <div class="alert-content"></div>
+</div>
+<!-- 导航条
+================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="wrap">
+			<a class="brand" title="微信公众号" href="https://mp.weixin.qq.com" target="_blank">
+				<img height="52" src="https://res.wx.qq.com/mpres/htmledition/images/bg/bg_logo318e8e.png"/>
+      </a>
+
+      <!-- <div class="switch_mp">
+        <a href="javascript:void(0);">微信菜单编辑</a>
+      </div> -->
+      <div class="top_nav">
+          <ul class="nav" style="margin-right:0">
+              <li class="active"><a href="<?php echo WORK_PATH;?>">退出</a></li>
+          </ul>
+      </div>
+    </div>
+</div>
+	<!-- /头部 -->
+
+	<!-- 主体 -->
+<div id="main-container" class="admin_container">
+	<div class="sidebar">
+      <ul class="sidenav">
+        <li>
+          <a class="sidenav_parent" href="javascript:void(0);">
+            <!--<img src="__PUBLIC__/Weixin/images/left_icon_.png"/>-->
+            公众号功能</a>
+						<ul class="sidenav_sub">
+						<li class="" data-id="48"> <a href="<?php echo WORK_PATH.'Weixin/Material/news_material';?>"> 素材管理 </a><b class="active_arrow"></b></li>
+          	<li class="" data-id="48"> <a href="<?php echo WORK_PATH.'Weixin/Autoreply/autoreply_news';?>">自动回复 </a><b class="active_arrow"></b></li>
+						<li class="active" data-id="47"> <a href="<?php echo WORK_PATH.'Weixin/Menu/index';?>"> 自定义菜单 </a><b class="active_arrow"></b></li>
+					</ul>
+        </li>
+      </ul>
+  </div>
+	<div class="main_body">
+
+  <style type="text/css">
+    td{ font-size:14px;}
+  	#phone{ position:relative; margin:0 0; width:400px; height:698px; background:url(__PUBLIC__/Weixin/images/preview_phone_short.jpg) no-repeat center 0;}
+	#frame{ position:absolute; left:0; margin:100px 0 0 40px; width:320px; border:2px solid #333; background:#666; height:487px;width:320px; overflow:hidden;}
+	.wx_menu{ position:absolute; bottom:0; left:0; right:0; height:50px; background:#fff;}
+	.wx_menu .keyboard{ float:left; width:44px;height:50px; background:url(__PUBLIC__/Weixin/images/wx_menu_keyboard_icon.png) no-repeat; background-size:100% 100%; border-right:1px solid #CCC;}
+	.wx_menu .menu{ display:-webkit-box; height:50px; float:left; width:275px;}
+	.wx_menu .menu>div{ -webkit-box-flex:1; display:block; line-height:50px; color:#434343; text-align:center; border-right:1px solid #ccc; position:relative;}
+	.wx_menu .menu>div:last-child{ border:none;}
+	.wx_menu .menu>div img{ width:12px; vertical-align:-1px; margin-right:2px;}
+	.wx_menu .sub_menu{ position:absolute; bottom:-358px; margin-left:0; padding:0 5px; border:1px solid #ccc; border-radius:5px; background:#fff; text-align:center; z-index:10;}
+	.m_a_i{ position:relative; z-index:100; background:#fff;}
+	.wx_menu .sub_menu a{ display:block; color:#434343; border-bottom:1px solid #ddd; height:40px; line-height:40px; padding:0 5px; white-space:nowrap}
+	.wx_menu .sub_menu a:last-child{ border:none;}
+	.wx_menu .sub_menu em{ position:absolute; width:10px; height:8px; bottom:-7px; left:50%; margin-left:-5px; background:url(__PUBLIC__/Weixin/images/arrow_down.png) no-repeat center bottom;}
+  </style>
+  <div class="span9 page_message">
+    <section id="contents">
+      <ul class="tab-nav nav">
+        <li class="current">
+          <a href="http://localhost/wp20170503/index.php?s=/addon/CustomMenu/CustomMenu/lists.html">自定义菜单<span class="arrow fa fa-sort-up"></span></a></li>
+      </ul>
+
+      <!-- 数据列表 -->
+      <div class="data-table" style="margin-top:40px; overflow:hidden">
+      	<div class="" style="float:left;">
+        	<div id="phone">
+            	<div id="frame">
+                	<div class="wx_menu">
+                    	<span class="keyboard"></span>
+                        <div class="menu">
+													<?php foreach($menu as $key => $m){ ?>
+														<div class="m_a" href="javascript:void(0);">
+															<div class="m_a_i">
+																<img src="__PUBLIC__/Weixin/images/wx_menu_list_icon.png"/><?php echo $m['title'];?>
+															</div>
+															<div class="sub_menu">
+																<div class="sub_menu_inner">
+																<?php if(count($m['second_level'])){?>
+																<?php foreach($m['second_level'] as $key => $s){ ?>
+																	<a href="#"><?php echo $s['title'];?></a>
+																<?php }}?>
+																</div>
+																	<em></em>
+															</div>
+														</div>
+													<?php }?>
+												</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" table-striped" style="float:right; width:540px">
+          <table cellpadding="0" cellspacing="1">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                	<th><a href="<?php echo WORK_PATH.'Weixin/Menu/edit_menu/current/0';?>">+添加</a></th>
+                  <th>操作</th>
+              </tr>
+            </thead>
+
+            <!-- 列表 -->
+            <tbody>
+              <?php foreach($menu as $key => $m){ ?>
+                <tr>
+                  <td>
+                  	<input class="ids" type="hidden" value="1" name="ids[]">
+                  	<strong><?php echo $m['title'];?></strong>
+                  </td>
+                  <td>
+                  	<a href="<?php echo WORK_PATH.'Weixin/Menu/edit_menu/current/'.$m['id'];?>">编辑</a>
+                    <a href="<?php echo WORK_PATH.'Weixin/Menu/delete_menu/current/'.$m['id'];?>">删除</a>
+                  </td>
+                </tr>
+                <?php if(count($m['second_level'])){?>
+                  <?php foreach($m['second_level'] as $key => $s){ ?>
+                    <tr>
+                      <td>
+                        <input class="ids" type="hidden" value="2" name="ids[]">
+                          &nbsp;&nbsp;&nbsp;&nbsp; |-- <?php echo $s['title'];?></td>
+                      <td>
+                        <a href="<?php echo WORK_PATH.'Weixin/Menu/edit_menu/current/'.$s['id'];?>">编辑</a>
+                        <a href="<?php echo WORK_PATH.'Weixin/Menu/delete_menu/current/'.$s['id'];?>">删除</a>
+                      </td>
+                    </tr>
+              <?php }}}?>
+              </tbody>
+          </table>
+
+        </div>
+      </div>
+       <div class="form-item form_bh" style="margin:20px;">
+          <button style="padding:12px 40px;" class="btn ajax-post confirm" type="button" target-form="ids" url="<?php echo WORK_PATH.'Weixin/Menu/send_menu';?>">发布到微信</button>
+        </div>
+      <div class="page">  </div>
+    </section>
+  </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+(function(){
+	var ThinkPHP = window.Think = {
+		"ROOT"   : "/wp20170503", //当前网站地址
+		"APP"    : "/wp20170503/index.php?s=", //当前项目地址
+		"PUBLIC" : "/wp20170503/Public", //项目公共目录地址
+		"DEEP"   : "/", //PATHINFO分割符
+		"MODEL"  : ["3", "", "html"],
+		"VAR"    : ["m", "c", "a"]
+	}
+})();
+</script>
+
+  <script type="text/javascript">
+$(function(){
+	//搜索功能
+  $("#search").click(function(){
+    var url = $(this).attr('url');
+    var str = $('.search-input').val()
+        var query  = $('.search-input').attr('name')+'='+str.replace(/(^\s*)|(\s*$)/g,"");
+
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+    window.location.href = url;
+  });
+
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+	//初始化菜单样式
+	$('.m_a').each(function(index, element) {
+       var submenu = $(element).find('.sub_menu');
+	   if(submenu.find('a').html()==undefined){
+		  $(element).find('img').hide();
+		  submenu.hide();
+	   }else{
+		   var mW = $(element).width();
+		   var sW = submenu.width()+10+2;
+		   submenu.css('margin-left',(mW-sW)/2);
+	   }
+    });
+	$('.m_a').hover(function(){
+		$(this).find('.sub_menu').animate({'bottom':58},300);
+	},function(){
+		$(this).find('.sub_menu').animate({'bottom':-458},300);
+	})
+
+})
+</script>
+ <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+<div style='display:none'><script>$.post("http://localhost/wp20170503/log.php?_addons=CustomMenu&_controller=CustomMenu&_action=lists&m=Home&mdm=45%7C47&publicid=1&c=Addons&a=execute&uid=1");</script></div>
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+
+</div>
+
+	<!-- /底部 -->
+</body>
+</html>

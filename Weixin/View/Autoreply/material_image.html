@@ -1,0 +1,63 @@
+<html><head><meta charset="UTF-8">
+<link href="__PUBLIC__/static/font-awesome/css/font-awesome.min.css?v=1498706053" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/base.css?v=1498706053" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/module.css?v=1498706053" rel="stylesheet">
+<link href="__PUBLIC__/Weixin/css/weiphp.css?v=1498706053" rel="stylesheet">
+<link href="__PUBLIC__/static/emoji.css?v=1498706053" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/zclip/ZeroClipboard.min.js?v=1498706053"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/dialog.js?v=1498706053"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_common.js?v=1498706053"></script>
+<script type="text/javascript" src="__PUBLIC__/Weixin/js/admin_image.js?v=1498706053"></script>
+<script type="text/javascript" src="__PUBLIC__/static/masonry/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.dragsort-0.5.2.min.js"></script>
+<script type="text/javascript">
+var  IMG_PATH = "__PUBLIC__/Weixin/images";
+var  STATIC = "__PUBLIC__/static";
+var  ROOT = "";
+var  UPLOAD_PICTURE = "http://m.iedulab.cn/index.php?s=/home/File/uploadPicture/session_id/petbtt9o6djbdfq3d85qc8na35.html";
+var  UPLOAD_FILE = "http://m.iedulab.cn/index.php?s=/Home/File/upload/session_id/petbtt9o6djbdfq3d85qc8na35.html";
+var  UPLOAD_DIALOG_URL = "http://m.iedulab.cn/index.php?s=/home/File/uploadDialog/session_id/petbtt9o6djbdfq3d85qc8na35.html";
+</script>
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+
+<style>
+.material_list{margin: 0;}
+.appmsg_item .main_img {margin: 0;}
+</style>
+</head>
+<body style="background: rgb(255, 255, 255);">
+<?php if(count($image)){?>
+<div class="data_container">
+  <ul class="material_list" style="position: relative; height: 1583px;">
+    <?php foreach($image as $key => $vo){?>
+      <li class="appmsg_li" data-id="<?php echo $vo['id'];?>" style="overflow: hidden; position: absolute; left: 0px; top: 15px;">
+        <div class="appmsg_item">
+            <div class="main_img">
+                <img src="<?php echo WORK_PATH.$vo['path'];?>" width="100px" height="100px">
+            </div>
+        </div>
+        <div class="hover_area"></div>
+      </li>
+    <?php }?>
+  </ul>
+</div>
+<?php }else{?>
+  <div class="empty_container"><p>您的图文素材库为空，<a target="_blank" href="<?php echo WORK_PATH.'Weixin/Material/image_material';?>">请先增加素材</a></p></div>
+<?php }?>
+
+<script type="text/javascript">
+$(function(){
+	$('.material_list').masonry({
+		// options
+		itemSelector : '.appmsg_li'
+		//columnWidth : 308
+	  });
+});
+</script>
+<div class="list_pic_zoom" style="position:absolute; border:1px solid #ddd; background:#fff;padding:10px;display:none; z-index:10000;"><img width="200" height="200" src="">
+</div>
+</body>
+</html>
