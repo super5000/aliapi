@@ -1,4 +1,5 @@
 # ali/weixin等API调用示例
+# 项目运行环境：Linux/CentOs6.5、Apache/2.4、PHP/5.6、MySQL/5.5
 ##此工程借助ThinkPHP3.2.3框架集合了一下API，但任一接口都可以单独抽出使用，不依赖于其他API
 关于为何要使用第三方API，会不会有风险，[阿里云API网关产品经理somany做了一些分享](https://yq.aliyun.com/articles/72533?spm=5176.100239.0.0.g6BX1g)，可以移步阅读
 ##阿里云市场部分API调用结果优化  
