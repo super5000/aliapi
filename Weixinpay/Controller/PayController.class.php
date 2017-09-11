@@ -24,7 +24,7 @@ class PayController extends Controller {
     $order_no = $result['out_trade_no'];
     $transaction_id = $result['transaction_id'];
 
-    // 确认支付成功前
+    // 确认支付成功前做签名验证，并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失，
     // 1、验证订单金额是否一致
     // 2、判断订单是否已做支付成功处理
     // 支付成功后的业务逻辑

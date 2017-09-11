@@ -26,7 +26,7 @@ class AlipayController extends Controller {
     if ($is_success == 'T' && $order_no == $_SESSION['order_no']) {
       if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
 
-        // 确认支付成功前
+        // 确认支付成功前做签名验证，并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失，
         // 1、验证订单金额是否一致
         // 2、判断订单是否已做支付成功处理
         // 支付成功后的业务逻辑
@@ -51,7 +51,7 @@ class AlipayController extends Controller {
     // 判断支付是否成功
     if($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
 
-      // 确认支付成功前
+      // 确认支付成功前做签名验证，并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失，
       // 1、验证订单金额是否一致
       // 2、判断订单是否已做支付成功处理（异步通知可能会多次请求）
       // 支付成功后的业务逻辑
